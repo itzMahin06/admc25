@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admission Calendar 2025</title>
+ <link href="https://fonts.maateen.me/kalpurush/font.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-light: #eff6ff;
+      --text-main: #1f2937;
+      --text-muted: #4b5563;
+      --card-bg: #ffffff;
+      --bg: #f9fafb;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: "Kalpurush", "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      background: #fff;
+      padding: 1rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      text-align: center;
+      z-index: 100;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      color: var(--primary);
+      letter-spacing: -0.5px;
+    }
+    main {
+      flex: 1;
+      max-width: 1000px;
+      margin: auto;
+      padding: 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.2rem;
+    }
+    .card {
+      background: var(--card-bg);
+      border-radius: 18px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+      padding: 1.2rem 1rem;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    }
+    .card h3 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+      font-size: 1.25rem;
+    }
+    .date {
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 0.4rem;
+    }
+    .info {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      background: #f3f4f6;
+      border-radius: 10px;
+      padding: 0.5rem 0.75rem;
+      margin-bottom: 0.8rem;
+    }
+    .countdown {
+      background: var(--primary-light);
+      color: var(--primary);
+      padding: 0.5rem 0.8rem;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 0.95rem;
+      animation: fadeIn 0.6s ease;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: scale(0.98);}
+      to {opacity: 1; transform: scale(1);}
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #6b7280;
+    }
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 1.4rem;
+      }
+      .card {
+        padding: 1rem;
+      }
+      .card h3 {
+        font-size: 1.1rem;
+      }
+      .countdown {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Admission Calendar 2025</h1>
+  </header>
+
+  <main id="calendar"></main>
+
+  <footer>
+    © 2025 Admission Tracker — Built with ❤️ by Mahin
+  </footer>
+
+  <script>
+    const data = [
+      {
+        title: "BUET Admission Test",
+        date: "2025-05-25",
+        otherInfo: "আবেদন শুরু ১লা এপ্রিল, শেষ ১৫ই এপ্রিল।"
+      },
+      {
+        title: "RUET, KUET & CUET Combined Test",
+        date: "2025-06-15",
+        otherInfo: "আবেদন সময়: ১০-২৫ মে। সিট সংখ্যা ৩টি ইউনিভার্সিটিতে একসাথে।"
+      },
+      {
+        title: "BUTEX Admission Test",
+        date: "2025-07-05",
+        otherInfo: ""
+      },
+      {
+        title: "MIST Admission",
+        date: "2025-04-10"
+      },
+      {
+        title: "Dhaka University Admission (A Unit)",
+        date: "2025-03-15",
+        otherInfo: "সকাল ১১টা থেকে দুপুর ১২:৩০ পর্যন্ত পরীক্ষা।"
+      }
+    ];
+
+    const calendar = document.getElementById("calendar");
+    let countdownIntervals = [];
+
+    function escapeHtml(str) {
+      if (!str) return "";
+      return str.replace(/[&<>'"]/g, (c) =>
+        ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" }[c])
+      );
+    }
+
+    function render() {
+      calendar.innerHTML = "";
+      countdownIntervals.forEach(clearInterval);
+      countdownIntervals = [];
+
+      data.forEach((event) => {
+        const card = document.createElement("div");
+        card.className = "card";
+
+        const infoText =
+          event.otherInfo && event.otherInfo.trim() !== ""
+            ? event.otherInfo
+            : "কোনো অতিরিক্ত তথ্য নেই";
+
+        card.innerHTML =
+          `<h3>${escapeHtml(event.title)}</h3>
+           <p class="date">📅 ${escapeHtml(event.date)}</p>
+           <p class="info">${escapeHtml(infoText)}</p>
+           <div class="countdown">লোড হচ্ছে...</div>`;
+
+        calendar.appendChild(card);
+
+        const countdownEl = card.querySelector(".countdown");
+        startCountdown(event.date, countdownEl);
+      });
+    }
+
+    function startCountdown(dateStr, el) {
+      const target = new Date(dateStr).getTime();
+      function update() {
+        const now = Date.now();
+        const diff = target - now;
+
+        if (diff <= 0) {
+          el.textContent = "🎉 পরীক্ষা চলছে বা শেষ হয়েছে!";
+          return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / (1000 * 60)) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+        el.textContent = `⏰ বাকি ${days}দিন ${hours}ঘণ্টা ${minutes}মিনিট ${seconds}সেকেন্ড`;
+      }
+
+      update();
+      const interval = setInterval(update, 1000);
+      countdownIntervals.push(interval);
+    }
+
+    render();
+  </script>
+</body>
+</html>
