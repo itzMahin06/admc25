@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admission Calendar 2025</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.maateen.me/bangla/font.css" rel="stylesheet">
+  
   <style>
     :root {
       --primary: #007bff;
@@ -18,7 +18,7 @@
     }
 
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Bangla', sans-serif;
       background: var(--bg);
       color: var(--text);
       margin: 0;
@@ -186,12 +186,111 @@
         color: var(--text);
       }
     }
+
+      .profile-box {
+    background: #111;
+    border: 1px solid #222;
+    border-radius: 20px;
+    padding: 30px;
+    width: 320px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+  }
+
+  .profile-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.1);
+  }
+
+  .logo {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 2px solid #333;
+  }
+
+  .channel-name {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 15px;
+  }
+
+  .subscribe-btn {
+    background: #ff0000;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .subscribe-btn:hover {
+    background: #e60000;
+    transform: scale(1.05);
+  }
+
+  .telegram-btn {
+    background: linear-gradient(90deg, #0088cc, #00bfff);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: all 0.3s ease;
+  }
+
+  .telegram-btn:hover {
+    transform: scale(1.05);
+  }
+
+  .telegram-btn i, .subscribe-btn i {
+    margin-right: 8px;
+  }
+
+    footer {
+    margin-top: 25px;
+    color: #999;
+    font-size: 13px;
+    text-align: center;
+    border-top: 1px solid #222;
+    padding-top: 15px;
+    width: 100%;
+    max-width: 350px;
+  }
+
+  footer a {
+    color: #00bfff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  footer a:hover {
+    color: #fff;
+  }
+    
   </style>
 </head>
 
 <body>
   <div class="container">
     <h1>🎓 Admission Calendar 2025</h1>
+
+    <div class="profile-box">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEixjYheoQWtMj5aR7uUcKdyR7N2zceniFB1QkZ6zo_xIbUdS7F4Xf4v7PQUoOtkicXIUMS-kaE71W2VkYeeefas9b-Ww-dHV0UhMi3mF40THgHcO1ohPVL0IjbThvcruOGo0UcS_FE63hF2ggml4cLwsMkaWabC5jLzR7NUF_uK5Xtpe8RDZEAJEsAzQqc/s1600/IMG_1617.jpeg" class="logo" alt="Channel Logo">
+    <div class="channel-name">Mahmudul Islam Mahin</div>
+    <button class="subscribe-btn" id="subscribeBtn"><i class="fa-brands fa-youtube"></i> Subscribe</button>
+    <button class="telegram-btn" onclick="joinTelegram()"><i class="fa-brands fa-telegram"></i> Join Telegram Group</button>
+  </div>
 
     <input type="radio" name="tab" id="tab1" checked>
     <input type="radio" name="tab" id="tab2">
@@ -322,6 +421,9 @@
     </div>
   </div>
 
+  <footer>
+    © <span id="year"></span> <a href="https://www.youtube.com/@itzMahin" target="_blank">Mahmudul Islam Mahin</a>. All rights reserved.
+  </footer> 
   <script>
     // Countdown Function
     function updateCountdowns() {
@@ -339,6 +441,28 @@
     }
     updateCountdowns();
     setInterval(updateCountdowns, 60000);
+  </script>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <script>
+    const subscribeBtn = document.getElementById('subscribeBtn');
+    let subscribed = false;
+
+    subscribeBtn.addEventListener('click', () => {
+      subscribed = !subscribed;
+      if (subscribed) {
+        subscribeBtn.textContent = 'Subscribed';
+        subscribeBtn.style.background = '#444';
+      } else {
+        subscribeBtn.innerHTML = '<i class="fa-brands fa-youtube"></i> Subscribe';
+        subscribeBtn.style.background = '#ff0000';
+      }
+    });
+
+    function joinTelegram() {
+      window.open('https://t.me/mahinsclassroom', '_blank');
+    }
+     Auto update year
+    document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
