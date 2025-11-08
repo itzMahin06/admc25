@@ -126,21 +126,37 @@
   </footer> 
   <script>
     // Countdown Function
-    function updateCountdowns() {
-      document.querySelectorAll('[data-count]').forEach(el => {
-        const target = new Date(el.getAttribute('data-count').split(' ').reverse().join('T'));
-        const now = new Date();
-        const diff = target - now;
-        if (diff <= 0) {
-          el.innerText = "সময় শেষ";
-          return;
-        }
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        el.innerText = days + " দিন বাকি";
-      });
+    // Convert English digits to Bangla
+function toBanglaNumber(number) {
+  const banglaDigits = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
+  return number.toString().split('').map(d => banglaDigits[d] ?? d).join('');
+}
+
+// Countdown Function
+function updateCountdowns() {
+  document.querySelectorAll('[data-count]').forEach(el => {
+    const dateStr = el.getAttribute('data-count'); // e.g., "16-11-2025 23:59"
+    const [dmy, time] = dateStr.split(' ');
+    const [day, month, year] = dmy.split('-');
+    const target = new Date(`${year}-${month}-${day}T${time}:00`);
+
+    const now = new Date();
+    const diff = target - now;
+
+    if (diff <= 0) {
+      el.innerText = "সময় শেষ";
+      return;
     }
-    updateCountdowns();
-    setInterval(updateCountdowns, 60000);
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    el.innerText = `${toBanglaNumber(days)} দিন বাকি`;
+  });
+}
+
+// Run countdown every second
+setInterval(updateCountdowns, 1000);
+updateCountdowns();
+
   </script>
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <script>
