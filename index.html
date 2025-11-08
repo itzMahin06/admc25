@@ -35,7 +35,7 @@
     }
 
     .container {
-      max-width: 900px;
+      max-width: 100%;
       margin: auto;
       padding: 15px;
     }
@@ -156,39 +156,10 @@
       color: red;
     }
 
-    /* Responsive */
-    @media (max-width: 700px) {
-      table, thead, tbody, th, td, tr {
-        display: block;
-      }
-
-      tr {
-        margin-bottom: 12px;
-        background: #fff;
-        border-radius: var(--radius);
-        padding: 10px;
-      }
-
-      th {
-        display: none;
-      }
-
-      td {
-        display: flex;
-        justify-content: space-between;
-        border: none;
-        font-size: 14px;
-      }
-
-      td::before {
-        content: attr(data-label);
-        font-weight: 600;
-        color: var(--text);
-      }
-    }
+ 
 
       .profile-box {
-    background: var(--bg);
+    background: #111;
     border: 1px solid #222;
     border-radius: 20px;
     padding: 30px;
