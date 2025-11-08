@@ -188,11 +188,11 @@
     }
 
       .profile-box {
-    background: #111;
+    background: var(--bg);
     border: 1px solid #222;
     border-radius: 20px;
     padding: 30px;
-    width: 320px;
+    width: 100%;
     text-align: center;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
     transition: all 0.3s ease;
@@ -218,6 +218,18 @@
     font-weight: 600;
     margin-bottom: 15px;
   }
+    .description {
+  color:#e6e6e6;
+  font-size:14px;
+  line-height:1.45;
+  margin:10px 0 16px;
+  padding: 0 4px;
+  color: #d6d6d6;
+  max-height: 5.2em; /* approx 4 lines */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent);
+}
 
   .subscribe-btn {
     background: #ff0000;
@@ -277,6 +289,74 @@
   footer a:hover {
     color: #fff;
   }
+
+    .slider-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.video-slider-section {
+  max-width: 1100px;
+  margin: auto;
+}
+
+.video-slider {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  padding-bottom: 10px;
+}
+
+.video-slider::-webkit-scrollbar {
+  height: 8px;
+}
+
+.video-slider::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 10px;
+}
+
+.video-card {
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 12px;
+  width: 300px;
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.video-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+}
+
+.video-thumb {
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+}
+
+.video-info {
+  padding: 12px;
+}
+
+.video-title {
+  font-size: 15px;
+  color: #fff;
+  font-weight: 500;
+  line-height: 1.3em;
+  margin-top: 5px;
+  height: 2.6em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
     
   </style>
 </head>
@@ -288,10 +368,18 @@
     <div class="profile-box">
     <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEixjYheoQWtMj5aR7uUcKdyR7N2zceniFB1QkZ6zo_xIbUdS7F4Xf4v7PQUoOtkicXIUMS-kaE71W2VkYeeefas9b-Ww-dHV0UhMi3mF40THgHcO1ohPVL0IjbThvcruOGo0UcS_FE63hF2ggml4cLwsMkaWabC5jLzR7NUF_uK5Xtpe8RDZEAJEsAzQqc/s1600/IMG_1617.jpeg" class="logo" alt="Channel Logo">
     <div class="channel-name">Mahmudul Islam Mahin</div>
+      <div class="description">
+        Subscribe my channel to get information about Admission. 
+      </div>
     <button class="subscribe-btn" id="subscribeBtn"><i class="fa-brands fa-youtube"></i> Subscribe</button>
     <button class="telegram-btn" onclick="joinTelegram()"><i class="fa-brands fa-telegram"></i> Join Telegram Group</button>
   </div>
 
+    <section class="video-slider-section">
+    <h2 class="slider-title">Latest Videos</h2>
+    <div class="video-slider" id="videoSlider"></div>
+  </section>
+    
     <input type="radio" name="tab" id="tab1" checked>
     <input type="radio" name="tab" id="tab2">
     <input type="radio" name="tab" id="tab3">
@@ -464,5 +552,57 @@
      Auto update year
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
+<script> 
+  // ==== Add your YouTube video links here ====
+const videoLinks = [
+  "https://www.youtube.com/watch?v=1mE5TGuekls",
+  "https://www.youtube.com/watch?v=XOmOjg1WZm0",
+  "https://www.youtube.com/watch?v=y-OSm7gnFLw",
+  "https://www.youtube.com/watch?v=wcXTKmfMKTw",
+  "https://www.youtube.com/watch?v=TJh1pajFPGY"
+];
+
+// ==== Functions ====
+const videoSlider = document.getElementById("videoSlider");
+
+videoLinks.forEach(link => {
+  const videoId = extractYouTubeID(link);
+  if (!videoId) return;
+
+  fetchVideoDetails(videoId).then(data => {
+    const card = document.createElement("div");
+    card.classList.add("video-card");
+    card.innerHTML = `
+      <img class="video-thumb" src="https://img.youtube.com/vi/${videoId}/hqdefault.jpg" alt="Video Thumbnail">
+      <div class="video-info">
+        <div class="video-title">${data.title}</div>
+      </div>
+    `;
+    card.addEventListener("click", () => {
+      window.open(`https://www.youtube.com/watch?v=${videoId}`, "_blank");
+    });
+    videoSlider.appendChild(card);
+  });
+});
+
+// ==== Helper: extract video ID ====
+function extractYouTubeID(url) {
+  const regex = /(?:youtube\.com\/.*v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+  const match = url.match(regex);
+  return match ? match[1] : null;
+}
+
+// ==== Helper: get video title (no API key needed) ====
+async function fetchVideoDetails(videoId) {
+  try {
+    const res = await fetch(`https://noembed.com/embed?url=https://www.youtube.com/watch?v=${videoId}`);
+    const data = await res.json();
+    return { title: data.title || "Untitled Video" };
+  } catch {
+    return { title: "Untitled Video" };
+  }
+}
+</script> 
+  
 </body>
 </html>
