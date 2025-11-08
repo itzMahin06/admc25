@@ -55,6 +55,8 @@
         <tbody>
           <tr><td>DU</td><td><a href="https://admission.eis.du.ac.bd/bn/408b7c8ad06e4d9954fa2d948a01f508" target="_blank">Visit</a></td><td>Nov 16, 2025</td><td data-count="16-11-2025 23:59"></td></tr>
           <tr><td>KU</td><td><a href="https://apply.ku.ac.bd" target="_blank">Visit</a></td><td>Nov 27, 2025</td><td data-count="27-11-2025 23:59"></td></tr>
+          <tr><td>BUP</td><td><a href="https://bup.edu.bd" target="_blank">Visit</a></td><td>Nov 30, 2025</td><td data-count="30-11-2025 23:59"></td></tr>
+          
           
         </tbody>
       </table>
@@ -82,6 +84,9 @@
           <tr><td>KU (B)</td><td>N/A</td><td>Dec 19, 2025</td><td data-count="19-12-2025 14:30"></td></tr>
           <tr><td>KU (C)</td><td>N/A</td><td>Dec 18, 2025</td><td data-count="18-12-2025 13:30"></td></tr>
           <tr><td>KU (D)</td><td>N/A</td><td>Dec 18, 2025</td><td data-count="18-12-2025 10:30"></td></tr>
+          <tr><td>BUP (FST,FOE,FMS)</td><td>N/A</td><td>Jan 17, 2026</td><td data-count="17-01-2026 10:30"></td></tr>
+          <tr><td>BUP (FASS)</td><td>N/A</td><td>Jan 10, 2026</td><td data-count="10-01-2026 10:30"></td></tr> 
+          <tr><td>BUP (FBS)</td><td>N/A</td><td>Jan 09, 2026</td><td data-count="09-01-2026 10:30"></td></tr> 
           
         </tbody>
       </table>
@@ -132,8 +137,7 @@
     © <span id="year"></span> <a href="https://www.youtube.com/@itzMahin" target="_blank">Mahmudul Islam Mahin</a>. All rights reserved.
   </footer> 
   <script>
-    // Countdown Function
-    // Convert English digits to Bangla
+// Convert English digits to Bangla
 function toBanglaNumber(number) {
   const banglaDigits = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
   return number.toString().split('').map(d => banglaDigits[d] ?? d).join('');
@@ -142,27 +146,37 @@ function toBanglaNumber(number) {
 // Countdown Function
 function updateCountdowns() {
   document.querySelectorAll('[data-count]').forEach(el => {
-    const dateStr = el.getAttribute('data-count'); // e.g., "16-11-2025 23:59"
+    const dateStr = el.getAttribute('data-count'); // e.g. "16-11-2025 23:59"
     const [dmy, time] = dateStr.split(' ');
-    const [day, month, year] = dmy.split('-');
-    const target = new Date(`${year}-${month}-${day}T${time}:00`);
+    const [day, month, year] = dmy.split('-').map(x => parseInt(x, 10));
+    
+    // Create valid date manually (avoid timezone parsing issues)
+    const [hour, minute] = time.split(':').map(x => parseInt(x, 10));
+    const target = new Date(year, month - 1, day, hour, minute, 0);
+
+    if (isNaN(target.getTime())) {
+      el.innerText = "অবৈধ তারিখ";
+      return;
+    }
 
     const now = new Date();
-    const diff = target - now;
+    const diff = target.getTime() - now.getTime();
 
     if (diff <= 0) {
       el.innerText = "সময় শেষ";
       return;
     }
 
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    // Always show at least 0 days
+    const days = Math.max(0, Math.floor(diff / (1000 * 60 * 60 * 24)));
     el.innerText = `${toBanglaNumber(days)} দিন বাকি`;
   });
 }
 
-// Run countdown every second
-setInterval(updateCountdowns, 1000);
+// Run countdown every minute (no need every second)
+setInterval(updateCountdowns, 60000);
 updateCountdowns();
+
 
   </script>
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
