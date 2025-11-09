@@ -103,7 +103,7 @@
       width: 100%;
       border-collapse: collapse;
       margin-top: 15px;
-      font-size: 15px;
+      font-size: 12px;
       border-radius: var(--radius);
       overflow: hidden;
     }
