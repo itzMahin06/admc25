@@ -96,15 +96,15 @@
           <tr><td>KU (B)</td><td>N/A</td><td>Dec 19, 2025</td><td data-count="19-12-2025 14:30"></td></tr>
           <tr><td>KU (C)</td><td>N/A</td><td>Dec 18, 2025</td><td data-count="18-12-2025 13:30"></td></tr>
           <tr><td>KU (D)</td><td>N/A</td><td>Dec 18, 2025</td><td data-count="18-12-2025 10:30"></td></tr>
-          <tr><td>BUP (FST,FOE,FMS)</td><td>N/A</td><td>Jan 17, 2026</td><td data-count="17-01-2026 10:30"></td></tr>
+          <tr><td>BUP (FST, FOE, FMS)</td><td>N/A</td><td>Jan 17, 2026</td><td data-count="17-01-2026 10:30"></td></tr>
           <tr><td>BUP (FASS)</td><td>N/A</td><td>Jan 10, 2026</td><td data-count="10-01-2026 10:30"></td></tr> 
           <tr><td>BUP (FBS)</td><td>N/A</td><td>Jan 09, 2026</td><td data-count="09-01-2026 10:30"></td></tr>
           <tr><td>BUP (FSSS)</td><td>N/A</td><td>Jan 17, 2026</td><td data-count="17-01-2026 15:30"></td></tr>
           <tr><td>BUP (BA)</td><td>N/A</td><td>Jan 09, 2026</td><td data-count="09-01-2026 15:30"></td></tr>
-          <tr><td>BMU(FMGP)</td><td>N/A</td><td>Jan 30, 2026</td><td data-count="30-01-2026 10:00"></td></tr>
-          <tr><td>BMU(FSA)</td><td>N/A</td><td>Jan 30, 2026</td><td data-count="30-01-2026 15:00"></td></tr>
-          <tr><td>BMU(FEOS)</td><td>N/A</td><td>Jan 31, 2026</td><td data-count="31-01-2026 10:00"></td></tr>
-          <tr><td>BMU(FET)</td><td>N/A</td><td>Jan 31, 2026</td><td data-count="31-01-2026 15:00"></td></tr>
+          <tr><td>BMU (FMGP)</td><td>N/A</td><td>Jan 30, 2026</td><td data-count="30-01-2026 10:00"></td></tr>
+          <tr><td>BMU (FSA)</td><td>N/A</td><td>Jan 30, 2026</td><td data-count="30-01-2026 15:00"></td></tr>
+          <tr><td>BMU (FEOS)</td><td>N/A</td><td>Jan 31, 2026</td><td data-count="31-01-2026 10:00"></td></tr>
+          <tr><td>BMU (FET)</td><td>N/A</td><td>Jan 31, 2026</td><td data-count="31-01-2026 15:00"></td></tr>
           <tr><td>AAUB</td><td>Dec 16, 2026</td><td>Dec 26, 2025</td><td data-count="26-12-2025 10:00"></td></tr>
           <tr><td>MIST</td><td>Dec 15, 2025</td><td>Dec 27, 2025</td><td data-count="27-12-2025 10:00"></td></tr>
           <tr><td>BUET</td><td>Dec 17, 2025</td><td>Jan 10, 2026</td><td data-count="10-01-2026 10:00"></td></tr>
@@ -214,80 +214,7 @@
 
 
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-  <script>
-    const subscribeBtn = document.getElementById('subscribeBtn');
-    let subscribed = false;
-
-    subscribeBtn.addEventListener('click', () => {
-      subscribed = !subscribed;
-      if (subscribed) {
-        subscribeBtn.textContent = 'Subscribed';
-        subscribeBtn.style.background = '#444';
-      } else {
-        subscribeBtn.innerHTML = '<i class="fa-brands fa-youtube"></i> Subscribe';
-        subscribeBtn.style.background = '#ff0000';
-      }
-    });
-
-    function joinTelegram() {
-      window.open('https://t.me/mahinsclassroom', '_blank');
-    }
-     Auto update year
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
-<script> 
-  // ==== Add your YouTube video links here ====
-const videoLinks = [
-  "https://www.youtube.com/watch?v=1mE5TGuekls",
-  "https://www.youtube.com/watch?v=XOmOjg1WZm0",
-  "https://www.youtube.com/watch?v=y-OSm7gnFLw",
-  "https://www.youtube.com/watch?v=wcXTKmfMKTw",
-  "https://www.youtube.com/watch?v=TJh1pajFPGY",
-  "https://www.youtube.com/watch?v=yrpzKhyNvi4",
-  "https://www.youtube.com/watch?v=zXt9KQnR2Ko"
-];
-
-// ==== Functions ====
-const videoSlider = document.getElementById("videoSlider");
-
-videoLinks.forEach(link => {
-  const videoId = extractYouTubeID(link);
-  if (!videoId) return;
-
-  fetchVideoDetails(videoId).then(data => {
-    const card = document.createElement("div");
-    card.classList.add("video-card");
-    card.innerHTML = `
-      <img class="video-thumb" src="https://img.youtube.com/vi/${videoId}/hqdefault.jpg" alt="Video Thumbnail">
-      <div class="video-info">
-        <div class="video-title">${data.title}</div>
-      </div>
-    `;
-    card.addEventListener("click", () => {
-      window.open(`https://www.youtube.com/watch?v=${videoId}`, "_blank");
-    });
-    videoSlider.appendChild(card);
-  });
-});
-
-// ==== Helper: extract video ID ====
-function extractYouTubeID(url) {
-  const regex = /(?:youtube\.com\/.*v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-  const match = url.match(regex);
-  return match ? match[1] : null;
-}
-
-// ==== Helper: get video title (no API key needed) ====
-async function fetchVideoDetails(videoId) {
-  try {
-    const res = await fetch(`https://noembed.com/embed?url=https://www.youtube.com/watch?v=${videoId}`);
-    const data = await res.json();
-    return { title: data.title || "Untitled Video" };
-  } catch {
-    return { title: "Untitled Video" };
-  }
-}
-</script> 
+  
   <script src="script.js"></script> 
 </body>
 </html>
