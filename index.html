@@ -42,18 +42,18 @@
 
     <!-- আবেদন -->
     <div class="tcontent" id="tab1-content">
-      <div class="alert"> কোনো বিশ্ববিদ্যালয়ের তথ্য মিসিং/ভুল থাকলে আমাদের টেলিগ্রাম গ্রুপে মেসেজ দিন।</div>
+      <div class="alert"> কোনো বিশ্ববিদ্যালয়ের তথ্য মিসিং/ভুল থাকলে আমাদের টেলিগ্রাম গ্রুপে মেসেজ দিন।</div>
       <table>
         <thead>
           <tr>
-            <th>বিশ্ববিদ্যালয়</th>
+            <th>বিশ্ববিদ্যালয়</th>
             <th>আবেদন লিংক</th>
             <th>ডেডলাইন</th>
-            <th>অবশিষ্ট সময়</th>
+            <th>অবশিষ্ট সময়</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td>DU</td><td><a href="https://admission.eis.du.ac.bd/bn/408b7c8ad06e4d9954fa2d948a01f508" target="_blank">Visit</a></td><td>Nov 16, 2025</td><td data-count="29-10-2025 10:00 to 19-11-2025 23:59"></td></tr>
+          <tr><td>DU</td><td><a href="https://admission.eis.du.ac.bd/bn/408b7c8ad06e4d9954fa2d948a01f508" target="_blank">Visit</a></td><td>Nov 16, 2025</td><td data-count="16-11-2025 23:59"></td></tr>
           <tr><td>KU</td><td><a href="https://apply.ku.ac.bd" target="_blank">Visit</a></td><td>Nov 27, 2025</td><td data-count="27-11-2025 23:59"></td></tr>
           <tr><td>BUP</td><td><a href="https://bup.edu.bd" target="_blank">Visit</a></td><td>Nov 30, 2025</td><td data-count="30-11-2025 23:59"></td></tr>
           
@@ -74,14 +74,14 @@
 
     <!-- পরীক্ষা -->
     <div class="tcontent" id="tab2-content">
-      <div class="alert">কোনো বিশ্ববিদ্যালয়ের তথ্য মিসিং/ভুল থাকলে আমাদের টেলিগ্রাম গ্রুপে মেসেজ দিন।</div>
+      <div class="alert">কোনো বিশ্ববিদ্যালয়ের তথ্য মিসিং/ভুল থাকলে আমাদের টেলিগ্রাম গ্রুপে মেসেজ দিন।</div>
       <table>
         <thead>
           <tr>
-            <th>বিশ্ববিদ্যালয়</th>
+            <th>বিশ্ববিদ্যালয়</th>
             <th>প্রবেশপত্র</th>
             <th>পরীক্ষার তারিখ</th>
-            <th>অবশিষ্ট সময়</th>
+            <th>অবশিষ্ট সময়</th>
           </tr>
         </thead>
         <tbody> 
@@ -130,11 +130,11 @@
 
     <!-- অন্যান্য তথ্য -->
     <div class="tcontent" id="tab3-content">
-      <div class="alert">কোনো বিশ্ববিদ্যালয়ের তথ্য মিসিং/ভুল থাকলে আমাদের টেলিগ্রাম গ্রুপে মেসেজ দিন।</div>
+      <div class="alert">কোনো বিশ্ববিদ্যালয়ের তথ্য মিসিং/ভুল থাকলে আমাদের টেলিগ্রাম গ্রুপে মেসেজ দিন।</div>
       <table>
         <thead>
           <tr>
-            <th>বিশ্ববিদ্যালয়</th>
+            <th>বিশ্ববিদ্যালয়</th>
             <th>নেগেটিভ</th>
             <th>ক্যালকুলেটর</th>
             <th>সেকেন্ড টাইম</th>
@@ -165,11 +165,11 @@
 
     <!-- ফলাফল -->
     <div class="tcontent" id="tab4-content">
-      <div class="alert">কোনো বিশ্ববিদ্যালয়ের তথ্য মিসিং/ভুল থাকলে আমাদের টেলিগ্রাম গ্রুপে মেসেজ দিন।</div>
+      <div class="alert">কোনো বিশ্ববিদ্যালয়ের তথ্য মিসিং/ভুল থাকলে আমাদের টেলিগ্রাম গ্রুপে মেসেজ দিন।</div>
       <table>
         <thead>
           <tr>
-            <th>বিশ্ববিদ্যালয়</th>
+            <th>বিশ্ববিদ্যালয়</th>
             <th>ফলাফলের তারিখ</th>
             <th>ফলাফল</th>
           </tr>
@@ -256,74 +256,42 @@ function toBanglaNumber(number) {
   return number.toString().split('').map(d => banglaDigits[d] ?? d).join('');
 }
 
-// Format duration as HH:MM (Bangla)
-function formatDuration(ms) {
-  const totalSeconds = Math.floor(ms / 1000);
-  const hours = Math.floor(totalSeconds / 3600);
-  const minutes = Math.floor((totalSeconds % 3600) / 60);
-
-  return `${toBanglaNumber(hours)}:${toBanglaNumber(minutes.toString().padStart(2,'0'))}`;
-}
-
-// Main countdown
+// Countdown Function
 function updateCountdowns() {
   document.querySelectorAll('[data-count]').forEach(el => {
+    const dateStr = el.getAttribute('data-count'); // e.g. "16-11-2025 23:59"
+    const [dmy, time] = dateStr.split(' ');
+    const [day, month, year] = dmy.split('-').map(x => parseInt(x, 10));
     
-    const raw = el.getAttribute('data-count');
+    // Create valid date manually (avoid timezone parsing issues)
+    const [hour, minute] = time.split(':').map(x => parseInt(x, 10));
+    const target = new Date(year, month - 1, day, hour, minute, 0);
 
-    // Example formats supported:
-    // "12-11-2025 10:00 to 16-11-2025 23:59"
-    // "16-11-2025 23:59"  (single end date)
-    
-    let startStr = null, endStr = null;
-
-    if (raw.includes("to")) {
-      [startStr, endStr] = raw.split("to").map(s => s.trim());
-    } else {
-      endStr = raw.trim();
-    }
-
-    // Parse date
-    function parseDate(dateStr) {
-      const [dmy, time] = dateStr.split(" ");
-      const [day, month, year] = dmy.split("-").map(n => parseInt(n));
-      const [hour, minute] = time.split(":").map(n => parseInt(n));
-      return new Date(year, month - 1, day, hour, minute, 0);
-    }
-
-    const now = new Date();
-    const startDate = startStr ? parseDate(startStr) : null;
-    const endDate = parseDate(endStr);
-
-    if (isNaN(endDate.getTime())) {
+    if (isNaN(target.getTime())) {
       el.innerText = "অবৈধ তারিখ";
       return;
     }
 
-    // Case 1: Countdown has not started yet
-    if (startDate && now < startDate) {
-      const diff = startDate - now;
-      el.innerHTML = `শুরু হতে বাকি: ${formatDuration(diff)}`;
+    const now = new Date();
+    const diff = target.getTime() - now.getTime();
+
+    if (diff <= 0) {
+      el.innerText = "সময় শেষ";
       return;
     }
 
-    // Case 2: Started but not finished
-    if (now < endDate) {
-      const diff = endDate - now;
-      el.innerHTML = `বাকি: ${formatDuration(diff)}`;
-      return;
-    }
-
-    // Case 3: Over
-    el.innerText = "সময় শেষ";
+    // Always show at least 0 days
+    const days = Math.max(0, Math.floor(diff / (1000 * 60 * 60 * 24)));
+    el.innerText = `${toBanglaNumber(days)} দিন বাকি`;
   });
 }
 
-// Run countdown
-setInterval(updateCountdowns, 10000); // 10 seconds refresh
+// Run countdown every minute (no need every second)
+setInterval(updateCountdowns, 60000);
 updateCountdowns();
-</script>
-	
+
+
+  </script>
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <script>
     const subscribeBtn = document.getElementById('subscribeBtn');
