@@ -67,7 +67,7 @@
           <tr><td>Medical</td><td><a href="http://dgme.teletalk.com.bd/mbbs/" target="_blank">Visit</a></td><td>Nov 21, 2025</td><td data-count="21-11-2025 23:59"></td></tr>
           <tr><td>RU</td><td><a href="https://admission.ru.ac.bd/" target="_blank">Visit</a></td><td>Dec 07, 2025</td><td data-count="07-12-2025 23:59"></td></tr>
           <tr><td>JnU</td><td><a href="https://jnuadmission.com/" target="_blank">Visit</a></td><td>Dec 03, 2025</td><td data-count="03-12-2025 23:59"></td></tr>
-          
+          <tr><td>HSTU</td><td><a href="https://hstu.ac.bd/admission/index#" target="_blank">Visit</a></td><td>Dec 19, 2025</td><td data-count="19-12-2025 23:59"></td></tr>
           
           
         </tbody>
@@ -155,7 +155,7 @@
           <tr><td>Medical</td><td>২৫%</td><td no></td><td yes></td><td><a href="https://drive.google.com/drive/folders/1yE4fxwL5yp1pIyyBeQOJSX1McIe_DPWo" target="_blank">দেখুন</a></td></tr>
           <tr><td>RU</td><td>২৫%</td><td no></td><td yes></td><td><a href="https://drive.google.com/drive/folders/1-8xWawDMibGYtgxdZXTVGmePhkW1ypuA" target="_blank">দেখুন</a></td></tr>
           <tr><td>JnU</td><td>নাই</td><td no></td><td no></td><td><a href="https://drive.google.com/drive/folders/1XgM6TjSmU0-Zqgw2PyVQu4GBPHiht534" target="_blank">দেখুন</a></td></tr>
-          
+          <tr><td>HSTU</td><td>২৫%</td><td no></td><td yes></td><td><a href="https://drive.google.com/drive/folders/1KNpjRykz6EFVfzV5IRmCC-kRR-e87fs0" target="_blank">দেখুন</a></td></tr>
           
           
           
@@ -188,6 +188,7 @@
           <tr><td>Medical</td><td>Dec 14, 2025</td><td>সম্ভাব্য ১৪/১৫ ডিসেম্বর</td></tr>
           <tr><td>RU</td><td>Jan 30, 2026</td><td>N/A</td></tr>
           <tr><td>JnU</td><td>Jan 30, 2026</td><td>N/A</td></tr>
+			<tr><td>HSTU</td><td>Feb 10, 2025</td><td>N/A</td></tr>
 
 
           
@@ -211,7 +212,80 @@
 <link href="https://fonts.maateen.me/kalpurush/font.css" rel="stylesheet">
 
 
+<script>
+    const subscribeBtn = document.getElementById('subscribeBtn');
+    let subscribed = false;
 
+    subscribeBtn.addEventListener('click', () => {
+      subscribed = !subscribed;
+      if (subscribed) {
+        subscribeBtn.textContent = 'Subscribed';
+        subscribeBtn.style.background = '#444';
+      } else {
+        subscribeBtn.innerHTML = '<i class="fa-brands fa-youtube"></i> Subscribe';
+        subscribeBtn.style.background = '#ff0000';
+      }
+    });
+
+    function joinTelegram() {
+      window.open('https://t.me/mahinsclassroom', '_blank');
+    }
+     Auto update year
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+<script> 
+  // ==== Add your YouTube video links here ====
+const videoLinks = [
+  "https://www.youtube.com/watch?v=1mE5TGuekls",
+  "https://www.youtube.com/watch?v=XOmOjg1WZm0",
+  "https://www.youtube.com/watch?v=y-OSm7gnFLw",
+  "https://www.youtube.com/watch?v=wcXTKmfMKTw",
+  "https://www.youtube.com/watch?v=TJh1pajFPGY",
+  "https://www.youtube.com/watch?v=yrpzKhyNvi4",
+  "https://www.youtube.com/watch?v=zXt9KQnR2Ko"
+];
+
+// ==== Functions ====
+const videoSlider = document.getElementById("videoSlider");
+
+videoLinks.forEach(link => {
+  const videoId = extractYouTubeID(link);
+  if (!videoId) return;
+
+  fetchVideoDetails(videoId).then(data => {
+    const card = document.createElement("div");
+    card.classList.add("video-card");
+    card.innerHTML = `
+      <img class="video-thumb" src="https://img.youtube.com/vi/${videoId}/hqdefault.jpg" alt="Video Thumbnail">
+      <div class="video-info">
+        <div class="video-title">${data.title}</div>
+      </div>
+    `;
+    card.addEventListener("click", () => {
+      window.open(`https://www.youtube.com/watch?v=${videoId}`, "_blank");
+    });
+    videoSlider.appendChild(card);
+  });
+});
+
+// ==== Helper: extract video ID ====
+function extractYouTubeID(url) {
+  const regex = /(?:youtube\.com\/.*v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+  const match = url.match(regex);
+  return match ? match[1] : null;
+}
+
+// ==== Helper: get video title (no API key needed) ====
+async function fetchVideoDetails(videoId) {
+  try {
+    const res = await fetch(`https://noembed.com/embed?url=https://www.youtube.com/watch?v=${videoId}`);
+    const data = await res.json();
+    return { title: data.title || "Untitled Video" };
+  } catch {
+    return { title: "Untitled Video" };
+  }
+}
+</script>
 
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   
