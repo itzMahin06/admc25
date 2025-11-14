@@ -103,7 +103,7 @@
       width: 100%;
       border-collapse: collapse;
       margin-top: 15px;
-      font-size: 12px;
+      font-size: 14px;
       border-radius: var(--radius);
       overflow: hidden;
     }
@@ -123,6 +123,10 @@
       border-bottom: 1px solid var(--border);
       transition: background 0.2s;
     }
+
+tr:nth-child(even) td {
+  background: #f8faff;
+}
 
     tr:hover {
       background: var(--primary-light);
