@@ -1,0 +1,117 @@
+  
+// Convert English digits to Bangla
+function toBanglaNumber(number) {
+  const banglaDigits = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
+  return number.toString().split('').map(d => banglaDigits[d] ?? d).join('');
+}
+
+// Countdown Function
+function updateCountdowns() {
+  document.querySelectorAll('[data-count]').forEach(el => {
+    const dateStr = el.getAttribute('data-count'); // e.g. "16-11-2025 23:59"
+    const [dmy, time] = dateStr.split(' ');
+    const [day, month, year] = dmy.split('-').map(x => parseInt(x, 10));
+    
+    // Create valid date manually (avoid timezone parsing issues)
+    const [hour, minute] = time.split(':').map(x => parseInt(x, 10));
+    const target = new Date(year, month - 1, day, hour, minute, 0);
+
+    if (isNaN(target.getTime())) {
+      el.innerText = "অবৈধ তারিখ";
+      return;
+    }
+
+    const now = new Date();
+    const diff = target.getTime() - now.getTime();
+
+    if (diff <= 0) {
+      el.innerText = "সময় শেষ";
+      return;
+    }
+
+    // Always show at least 0 days
+    const days = Math.max(0, Math.floor(diff / (1000 * 60 * 60 * 24)));
+    el.innerText = `${toBanglaNumber(days)} দিন বাকি`;
+  });
+}
+
+// Run countdown every minute (no need every second)
+setInterval(updateCountdowns, 60000);
+updateCountdowns();
+
+
+  
+  
+  
+    const subscribeBtn = document.getElementById('subscribeBtn');
+    let subscribed = false;
+
+    subscribeBtn.addEventListener('click', () => {
+      subscribed = !subscribed;
+      if (subscribed) {
+        subscribeBtn.textContent = 'Subscribed';
+        subscribeBtn.style.background = '#444';
+      } else {
+        subscribeBtn.innerHTML = '<i class="fa-brands fa-youtube"></i> Subscribe';
+        subscribeBtn.style.background = '#ff0000';
+      }
+    });
+
+    function joinTelegram() {
+      window.open('https://t.me/mahinsclassroom', '_blank');
+    }
+     Auto update year
+    document.getElementById("year").textContent = new Date().getFullYear();
+  
+
+  // ==== Add your YouTube video links here ====
+const videoLinks = [
+  "https://www.youtube.com/watch?v=1mE5TGuekls",
+  "https://www.youtube.com/watch?v=XOmOjg1WZm0",
+  "https://www.youtube.com/watch?v=y-OSm7gnFLw",
+  "https://www.youtube.com/watch?v=wcXTKmfMKTw",
+  "https://www.youtube.com/watch?v=TJh1pajFPGY",
+  "https://www.youtube.com/watch?v=yrpzKhyNvi4",
+  "https://www.youtube.com/watch?v=zXt9KQnR2Ko"
+];
+
+// ==== Functions ====
+const videoSlider = document.getElementById("videoSlider");
+
+videoLinks.forEach(link => {
+  const videoId = extractYouTubeID(link);
+  if (!videoId) return;
+
+  fetchVideoDetails(videoId).then(data => {
+    const card = document.createElement("div");
+    card.classList.add("video-card");
+    card.innerHTML = `
+      <img class="video-thumb" src="https://img.youtube.com/vi/${videoId}/hqdefault.jpg" alt="Video Thumbnail">
+      <div class="video-info">
+        <div class="video-title">${data.title}</div>
+      </div>
+    `;
+    card.addEventListener("click", () => {
+      window.open(`https://www.youtube.com/watch?v=${videoId}`, "_blank");
+    });
+    videoSlider.appendChild(card);
+  });
+});
+
+// ==== Helper: extract video ID ====
+function extractYouTubeID(url) {
+  const regex = /(?:youtube\.com\/.*v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+  const match = url.match(regex);
+  return match ? match[1] : null;
+}
+
+// ==== Helper: get video title (no API key needed) ====
+async function fetchVideoDetails(videoId) {
+  try {
+    const res = await fetch(`https://noembed.com/embed?url=https://www.youtube.com/watch?v=${videoId}`);
+    const data = await res.json();
+    return { title: data.title || "Untitled Video" };
+  } catch {
+    return { title: "Untitled Video" };
+  }
+}
