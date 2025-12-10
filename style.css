@@ -324,3 +324,15 @@ tr:nth-child(even) td {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.favorite-btn {
+  cursor: pointer;
+  color: #bbb;
+  font-size: 18px;
+  padding-right: 6px;
+}
+
+.favorite-btn.active {
+  color: red;
+}
+
