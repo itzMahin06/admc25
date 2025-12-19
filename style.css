@@ -336,3 +336,36 @@ tr:nth-child(even) td {
   color: red;
 }
 
+header{
+    grid-area: header;
+}
+   header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: #fff;
+    -webkit-box-shadow: 0 3px 6px 0 rgba(50, 50, 50, .3);
+    box-shadow: 0 3px 6px 0 rgba(50, 50, 50, .3);
+    color: #000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+    z-index: 1000;
+    transition: top 0.8s ease-in-out;
+}
+   
+   .brand a{
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    color: green;
+    font-weight: 600;
+    font-size: 1.6rem;
+}
+.brand img{
+    height: 30px;
+    margin-right: 10px;
+}
