@@ -363,9 +363,9 @@ header{
     align-items: center;
     color: green;
     font-weight: 600;
-    font-size: 1.6rem;
+    font-size: 1.3rem;
 }
 .brand img{
-    height: 30px;
+    height: 50px;
     margin-right: 10px;
 }
