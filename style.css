@@ -1,248 +1,371 @@
-/* --- Modern UI/UX Variable System --- */
 :root {
-  /* Light Mode (Default) */
-  --bg-body: #f0f2f5;
-  --bg-card: #ffffff;
-  --bg-header: rgba(255, 255, 255, 0.85);
-  --text-main: #1c1e21;
-  --text-muted: #65676b;
-  --accent: #007bff;
-  --accent-hover: #0056b3;
-  --border: #dddfe2;
-  --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  --tab-inactive: #f0f2f5;
-  --table-stripe: #f8f9fa;
-  --glass: blur(10px);
+      --primary: #007bff;
+      --primary-light: #e6f0ff;
+      --bg: #ffffff;
+      --text: #222;
+      --border: #e0e0e0;
+      --card-bg: #fafafa;
+      --radius: 10px;
+    }
+
+    body {
+      font-family: 'Bangla', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 0;
+      line-height: 1.5;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 1.8rem;
+      margin: 20px 0;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .container {
+      max-width: 100%;
+      margin: auto;
+      padding: 15px;
+    }
+
+    .tlabels {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      padding: 10px;
+    }
+
+    .tlabels label {
+      flex: 1;
+      text-align: center;
+      padding: 10px 0;
+      border-radius: var(--radius);
+      background: #fff;
+      border: 1px solid var(--border);
+      color: var(--text);
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .tlabels label:hover {
+      background: var(--primary-light);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    input[type="radio"] {
+      display: none;
+    }
+
+    #tab1:checked ~ .tlabels label[for="tab1"],
+    #tab2:checked ~ .tlabels label[for="tab2"],
+    #tab3:checked ~ .tlabels label[for="tab3"],
+    #tab4:checked ~ .tlabels label[for="tab4"] {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .tcontent {
+      display: none;
+      margin-top: 20px;
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 15px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    #tab1:checked ~ #tab1-content,
+    #tab2:checked ~ #tab2-content,
+    #tab3:checked ~ #tab3-content,
+    #tab4:checked ~ #tab4-content {
+      display: block;
+    }
+
+    .alert {
+      background: #fff8e1;
+      border-left: 4px solid #ffc107;
+      padding: 10px 15px;
+      border-radius: var(--radius);
+      font-size: 14px;
+          text-align: center; 
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+      font-size: 14px;
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    th, td {
+      text-align: center;
+      padding: 10px;
+    }
+
+    th {
+      background: var(--primary);
+      color: #fff;
+      font-weight: 500;
+    }
+
+    tr {
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+
+tr:nth-child(even) td {
+  background: #f8faff;
 }
 
-[data-theme="dark"] {
-  /* Night Mode */
-  --bg-body: #0d1117;
-  --bg-card: #161b22;
-  --bg-header: rgba(22, 27, 34, 0.85);
-  --text-main: #c9d1d9;
-  --text-muted: #8b949e;
-  --accent: #58a6ff;
-  --accent-hover: #1f6feb;
-  --border: #30363d;
-  --shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-  --tab-inactive: #21262d;
-  --table-stripe: #1c2128;
+    tr:hover {
+      background: var(--primary-light);
+    }
+
+    td a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    td a:hover {
+      text-decoration: underline;
+    }
+
+    td[yes]::before {
+      content: "✔️ ";
+      color: green;
+    }
+
+    td[no]::before {
+      content: "❌ ";
+      color: red;
+    }
+
+ 
+
+      .profile-box {
+    background: #111;
+    border: 1px solid #222;
+    border-radius: 20px;
+    padding: 30px;
+   
+    text-align: center;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+  }
+
+  .profile-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.1);
+  }
+
+  .logo {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 2px solid #333;
+  }
+
+  .channel-name {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 15px;
+  }
+    .description {
+  color:#e6e6e6;
+  font-size:14px;
+  line-height:1.45;
+  margin:10px 0 16px;
+  padding: 0 4px;
+  color: #d6d6d6;
+  max-height: 5.2em; /* approx 4 lines */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent);
 }
 
-/* --- Base Styles --- */
-body {
-  font-family: 'Bangla', 'Hind Siliguri', sans-serif;
-  background-color: var(--bg-body);
-  color: var(--text-main);
-  margin: 0;
-  padding-top: 70px; /* Space for fixed header */
-  transition: background 0.3s ease, color 0.3s ease;
+  .subscribe-btn {
+    background: #ff0000;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .subscribe-btn:hover {
+    background: #e60000;
+    transform: scale(1.05);
+  }
+
+  .telegram-btn {
+    background: linear-gradient(90deg, #0088cc, #00bfff);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: all 0.3s ease;
+  }
+
+  .telegram-btn:hover {
+    transform: scale(1.05);
+  }
+
+  .telegram-btn i, .subscribe-btn i {
+    margin-right: 8px;
+  }
+
+    footer {
+    margin-top: 25px;
+    color: #999;
+    font-size: 13px;
+    text-align: center;
+    border-top: 1px solid #222;
+    padding-top: 15px;
+    width: 100%;
+    max-width: 350px;
+  }
+
+  footer a {
+    color: #00bfff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  footer a:hover {
+    color: #fff;
+  }
+
+    .slider-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
-.container {
-  max-width: 1000px;
+.video-slider-section {
+  max-width: 1100px;
   margin: auto;
-  padding: 15px;
 }
 
-/* --- Header & Theme Toggle --- */
-header {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  height: 65px;
-  background: var(--bg-header);
-  backdrop-filter: var(--glass);
-  -webkit-backdrop-filter: var(--glass);
+.video-slider {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 1.5rem;
-  z-index: 1000;
-  border-bottom: 1px solid var(--border);
-  box-shadow: var(--shadow);
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  padding-bottom: 10px;
 }
 
-.brand a {
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  color: var(--accent);
-  font-weight: 700;
-  font-size: 1.2rem;
+.video-slider::-webkit-scrollbar {
+  height: 8px;
 }
 
-.brand img {
-  height: 45px;
-  margin-right: 12px;
-  border-radius: 8px;
+.video-slider::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 10px;
 }
 
-/* Theme Button Styling */
-.theme-switch {
-  background: var(--tab-inactive);
-  border: 1px solid var(--border);
-  color: var(--text-main);
-  padding: 8px 12px;
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: 0.3s;
-}
-
-/* --- Profile Box (Modernized) --- */
-.profile-box {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 24px;
-  padding: 30px;
-  text-align: center;
-  box-shadow: var(--shadow);
-  margin-bottom: 30px;
-}
-
-.logo {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  border: 3px solid var(--accent);
-  padding: 3px;
-  margin-bottom: 15px;
-}
-
-.channel-name {
-  color: var(--text-main);
-  font-size: 1.6rem;
-  font-weight: 700;
-}
-
-.description {
-  color: var(--text-muted);
-  font-size: 15px;
-  margin: 10px 0 20px;
-}
-
-.subscribe-btn, .telegram-btn {
-  padding: 12px 28px;
-  border-radius: 50px;
-  font-weight: 600;
-  cursor: pointer;
-  border: none;
-  transition: 0.3s;
-  display: inline-flex;
-  align-items: center;
-  margin: 5px;
-  text-decoration: none;
-}
-
-.subscribe-btn { background: #ff0000; color: #fff; }
-.telegram-btn { background: #0088cc; color: #fff; }
-.subscribe-btn:hover, .telegram-btn:hover { transform: translateY(-2px); opacity: 0.9; }
-
-/* --- Tabs (Segmented Control Style) --- */
-.tlabels {
-  display: flex;
-  background: var(--tab-inactive);
-  padding: 6px;
-  border-radius: 16px;
-  gap: 5px;
-  margin-bottom: 20px;
-}
-
-.tlabels label {
-  flex: 1;
-  text-align: center;
-  padding: 12px 5px;
-  border-radius: 12px;
-  cursor: pointer;
-  font-weight: 600;
-  color: var(--text-muted);
-  transition: 0.3s;
-  font-size: 15px;
-}
-
-#tab1:checked ~ .tlabels label[for="tab1"],
-#tab2:checked ~ .tlabels label[for="tab2"],
-#tab3:checked ~ .tlabels label[for="tab3"],
-#tab4:checked ~ .tlabels label[for="tab4"] {
-  background: var(--bg-card);
-  color: var(--accent);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-/* --- Table Content --- */
-.tcontent {
-  background: var(--bg-card);
-  border-radius: 20px;
-  padding: 20px;
-  box-shadow: var(--shadow);
-  border: 1px solid var(--border);
-  overflow-x: auto; /* For mobile scroll */
-}
-
-.alert {
-  background: rgba(255, 193, 7, 0.15);
-  border-left: 4px solid #ffc107;
-  color: var(--text-main);
-  padding: 15px;
-  border-radius: 12px;
-  margin-bottom: 20px;
-  font-size: 14px;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-th {
-  background: var(--tab-inactive);
-  color: var(--text-muted);
-  text-transform: uppercase;
-  font-size: 12px;
-  letter-spacing: 1px;
-  padding: 15px;
-}
-
-td {
-  padding: 15px;
-  border-bottom: 1px solid var(--border);
-  text-align: center;
-}
-
-tr:nth-child(even) td { background: var(--table-stripe); }
-
-tr:hover td { background: rgba(0, 123, 255, 0.05); }
-
-td a {
-  color: var(--accent);
-  font-weight: 600;
-  text-decoration: none;
-}
-
-/* Icons for Yes/No */
-td[yes]::before { content: "✔"; color: #28a745; margin-right: 5px; font-weight: bold; }
-td[no]::before { content: "✖"; color: #dc3545; margin-right: 5px; font-weight: bold; }
-
-/* --- Video Slider --- */
 .video-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  width: 280px;
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 12px;
+  width: 300px;
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.video-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+}
+
+.video-thumb {
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+}
+
+.video-info {
+  padding: 12px;
 }
 
 .video-title {
-  color: var(--text-main);
+  font-size: 15px;
+  color: #fff;
+  font-weight: 500;
+  line-height: 1.3em;
+  margin-top: 5px;
+  height: 2.6em;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* --- Footer --- */
-footer {
-  margin-top: 50px;
-  padding: 30px;
-  border-top: 1px solid var(--border);
-  background: var(--bg-card);
+.favorite-btn {
+  cursor: pointer;
+  color: #bbb;
+  font-size: 18px;
+  padding-right: 6px;
+}
+
+.favorite-btn.active {
+  color: red;
+}
+
+header{
+    grid-area: header;
+}
+   header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: #fff;
+    -webkit-box-shadow: 0 3px 6px 0 rgba(50, 50, 50, .3);
+    box-shadow: 0 3px 6px 0 rgba(50, 50, 50, .3);
+    color: #000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+    z-index: 1000;
+    transition: top 0.8s ease-in-out;
+}
+   
+   .brand a{
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    color: green;
+    font-weight: 600;
+    font-size: 1.3rem;
+}
+.brand img{
+    height: 50px;
+    margin-right: 10px;
 }
