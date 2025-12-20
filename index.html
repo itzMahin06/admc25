@@ -447,6 +447,34 @@ title: "Untitled Video"
   window.addEventListener("load", openTabFromHash);
   window.addEventListener("hashchange", openTabFromHash);
 </script>
+<script>
+    // 1. Create and Add the Dark Mode Toggle Button Automatically
+document.addEventListener("DOMContentLoaded", function() {
+    const header = document.querySelector('header');
+    const themeBtn = document.createElement('button');
+    themeBtn.className = 'theme-switch';
+    themeBtn.id = 'theme-toggle';
+    themeBtn.innerHTML = '🌙 Night Mode';
+    header.appendChild(themeBtn);
 
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    document.body.setAttribute('data-theme', currentTheme);
+    updateBtn(currentTheme);
+
+    themeBtn.addEventListener('click', () => {
+        let theme = document.body.getAttribute('data-theme');
+        let newTheme = (theme === 'light') ? 'dark' : 'light';
+        
+        document.body.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateBtn(newTheme);
+    });
+
+    function updateBtn(theme) {
+        themeBtn.innerHTML = (theme === 'dark') ? '☀️ Day Mode' : '🌙 Night Mode';
+    }
+});
+</script>
+    
 </body>
 </html>
