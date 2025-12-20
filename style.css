@@ -104,39 +104,136 @@
         .telegram-btn { background: #0088cc; color: white; }
 
         /* --- Tabs --- */
-        .tlabels { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 25px; }
-        .tlabels label {
-            background: var(--card-light); padding: 12px; text-align: center;
-            border-radius: 12px; cursor: pointer; font-weight: 600;
-            border: 1px solid var(--border); transition: var(--transition);
-        }
-        input[type="radio"] { display: none; }
-        #tab1:checked ~ .tlabels label[for="tab1"], 
-        #tab2:checked ~ .tlabels label[for="tab2"],
-        #tab3:checked ~ .tlabels label[for="tab3"],
-        #tab4:checked ~ .tlabels label[for="tab4"] {
-            background: var(--primary); color: white; border-color: var(--primary);
-        }
+            .container {
+      max-width: 100%;
+      margin: auto;
+      padding: 15px;
+    }
 
-        .tcontent { display: none; animation: fadeIn 0.4s ease; }
-        #tab1:checked ~ #tab1-content, #tab2:checked ~ #tab2-content,
-        #tab3:checked ~ #tab3-content, #tab4:checked ~ #tab4-content { display: block; }
+    .tlabels {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      padding: 10px;
+    }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .tlabels label {
+      flex: 1;
+      text-align: center;
+      padding: 10px 0;
+      border-radius: var(--radius);
+      background: #fff;
+      border: 1px solid var(--border);
+      color: var(--text);
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
 
-        /* --- Table Fixes: 100% Width & Scroll --- */
-        .table-wrapper {
-            width: 100%;
-            overflow-x: auto;
-            background: var(--card-light);
-            border-radius: 16px;
-            border: 1px solid var(--border);
-            -webkit-overflow-scrolling: touch;
-        }
+    .tlabels label:hover {
+      background: var(--primary-light);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
 
-        table { width: 100%; min-width: 100%; border-collapse: collapse; }
-        th { background: rgba(67, 97, 238, 0.05); color: var(--primary); padding: 16px; font-size: 14px; border-bottom: 2px solid var(--border); }
-        td { padding: 14px 16px; text-align: center; border-bottom: 1px solid var(--border); font-size: 15px; }
+    input[type="radio"] {
+      display: none;
+    }
+
+    #tab1:checked ~ .tlabels label[for="tab1"],
+    #tab2:checked ~ .tlabels label[for="tab2"],
+    #tab3:checked ~ .tlabels label[for="tab3"],
+    #tab4:checked ~ .tlabels label[for="tab4"] {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .tcontent {
+      display: none;
+      margin-top: 20px;
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 15px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    #tab1:checked ~ #tab1-content,
+    #tab2:checked ~ #tab2-content,
+    #tab3:checked ~ #tab3-content,
+    #tab4:checked ~ #tab4-content {
+      display: block;
+    }
+
+    .alert {
+      background: #fff8e1;
+      border-left: 4px solid #ffc107;
+      padding: 10px 15px;
+      border-radius: var(--radius);
+      font-size: 14px;
+          text-align: center; 
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+      font-size: 14px;
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    th, td {
+      text-align: center;
+      padding: 10px;
+    }
+
+    th {
+      background: var(--primary);
+      color: #fff;
+      font-weight: 500;
+    }
+
+    tr {
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+
+tr:nth-child(even) td {
+  background: #f8faff;
+}
+
+    tr:hover {
+      background: var(--primary-light);
+    }
+
+    td a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    td a:hover {
+      text-decoration: underline;
+    }
+
+    td[yes]::before {
+      content: "✔️ ";
+      color: green;
+    }
+
+    td[no]::before {
+      content: "❌ ";
+      color: red;
+    }
+
+ 
+
+     
 
         /* --- Updated Visit Button --- */
         .visit-btn {
