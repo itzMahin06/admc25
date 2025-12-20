@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admission Calendar 2025</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            /* Light Mode Variables */
+            --bg-body: #f4f7fe;
+            --bg-card: #ffffff;
+            --bg-header: rgba(255, 255, 255, 0.8);
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --border-color: #e2e8f0;
+            --table-header: #f8fafc;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            /* Dark Mode Variables */
+            --bg-body: #0f172a;
+            --bg-card: #1e293b;
+            --bg-header: rgba(15, 23, 42, 0.8);
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --accent: #60a5fa;
+            --accent-hover: #93c5fd;
+            --border-color: #334155;
+            --table-header: #1e293b;
+            --shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Hind Siliguri', 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            transition: var(--transition);
+            line-height: 1.6;
+            padding-bottom: 50px;
+        }
+
+        /* --- Header & Navigation --- */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--bg-header);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0.8rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .brand img {
+            height: 40px;
+            width: 40px;
+            border-radius: 10px;
+        }
+
+        .theme-toggle {
+            background: var(--border-color);
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            cursor: pointer;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.05);
+        }
+
+        /* --- Container --- */
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* --- Profile Box --- */
+        .profile-box {
+            background: var(--bg-card);
+            padding: 2.5rem;
+            border-radius: 24px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .profile-box .logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 4px solid var(--accent);
+            padding: 3px;
+            margin-bottom: 1rem;
+        }
+
+        .channel-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .description {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 24px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+
+        .btn-youtube { background: #ff0000; color: white; }
+        .btn-telegram { background: #0088cc; color: white; }
+        .btn:hover { opacity: 0.9; transform: translateY(-2px); }
+
+        /* --- Tabs Logic --- */
+        .tlabels {
+            display: flex;
+            background: var(--bg-card);
+            padding: 6px;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            overflow-x: auto;
+        }
+
+        .tlabels label {
+            flex: 1;
+            text-align: center;
+            padding: 12px 10px;
+            cursor: pointer;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: var(--transition);
+            white-space: nowrap;
+            color: var(--text-muted);
+        }
+
+        input[type="radio"] { display: none; }
+
+        #tab1:checked ~ .tlabels label[for="tab1"],
+        #tab2:checked ~ .tlabels label[for="tab2"],
+        #tab3:checked ~ .tlabels label[for="tab3"],
+        #tab4:checked ~ .tlabels label[for="tab4"] {
+            background: var(--accent);
+            color: white;
+        }
+
+        .tcontent {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        #tab1:checked ~ #tab1-content,
+        #tab2:checked ~ #tab2-content,
+        #tab3:checked ~ #tab3-content,
+        #tab4:checked ~ #tab4-content {
+            display: block;
+        }
+
+        /* --- Modern Tables --- */
+        .alert {
+            background: rgba(59, 130, 246, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            color: var(--text-main);
+        }
+
+        .table-container {
+            background: var(--bg-card);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            margin-bottom: 2rem;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th {
+            background: var(--table-header);
+            padding: 16px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        td {
+            padding: 16px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.95rem;
+        }
+
+        tr:hover td {
+            background: rgba(59, 130, 246, 0.03);
+        }
+
+        .visit-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            border: 1px solid var(--accent);
+            padding: 4px 12px;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .visit-link:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        .countdown {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            color: #ef4444;
+            font-size: 0.9rem;
+        }
+
+        /* --- Footer --- */
+        footer {
+            margin-top: 4rem;
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 600px) {
+            .container { margin: 1rem auto; }
+            .profile-box { padding: 1.5rem; }
+            td, th { padding: 12px; font-size: 0.85rem; }
+            .brand span { display: none; }
+        }
+    </style>
+</head>
+
+<body data-theme="light">
+
+<header>
+    <a href="#" class="brand">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhCYY5WgDdWc6kowVbEWCCFwuZZgfxhKnwtZK_6YSWXFTVUjRA18HeB-xuL7aG6FVFoF-nSKmoIzaq22GzbBM4550-bE86WcxKL39hfKLTvZR0FgDW_fIvR8fMxOR9xzu30fFIve7xHIrFcbi0rLbMwEE3Zv8ZQDXx0F9pWLydZG7nPP0Rg24EptFpTEl7f/s1600/%E0%A6%8F%E0%A6%A1%E0%A6%AE%E0%A6%BF%E0%A6%B6%E0%A6%A8%20%E0%A6%95%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%B2%E0%A7%87%E0%A6%A8%E0%A7%8D%E0%A6%A1%E0%A6%BE%E0%A6%B0_20251220_022531_0000.png" alt="Logo">
+        <span>Admission Calendar</span>
+    </a>
+    <button class="theme-toggle" id="themeBtn" title="Toggle Theme">
+        <i class="fas fa-moon"></i>
+    </button>
+</header>
+
+<div class="container">
+    <!-- Profile -->
+    <div class="profile-box">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEixjYheoQWtMj5aR7uUcKdyR7N2zceniFB1QkZ6zo_xIbUdS7F4Xf4v7PQUoOtkicXIUMS-kaE71W2VkYeeefas9b-Ww-dHV0UhMi3mF40THgHcO1ohPVL0IjbThvcruOGo0UcS_FE63hF2ggml4cLwsMkaWabC5jLzR7NUF_uK5Xtpe8RDZEAJEsAzQqc/s1600/IMG_1617.jpeg" class="logo" alt="Mahmudul">
+        <div class="channel-name">Mahmudul Islam Mahin</div>
+        <div class="description">বিশ্ববিদ্যালয় ভর্তি সংক্রান্ত সকল তথ্যের জন্য সাবস্ক্রাইব করে সাথেই থাকুন।</div>
+        <div class="btn-group">
+            <a href="https://youtube.com/@itzMahin" class="btn btn-youtube"><i class="fab fa-youtube"></i> Subscribe</a>
+            <a href="https://t.me/mahinsclassroom" class="btn btn-telegram"><i class="fab fa-telegram"></i> Join Telegram</a>
+        </div>
+    </div>
+
+    <!-- Tabs Container -->
+    <input type="radio" name="tab" id="tab1" checked>
+    <input type="radio" name="tab" id="tab2">
+    <input type="radio" name="tab" id="tab3">
+    <input type="radio" name="tab" id="tab4">
+
+    <div class="tlabels">
+        <label for="tab1" data-tab="tab1">আবেদন</label>
+        <label for="tab2" data-tab="tab2">পরীক্ষা</label>
+        <label for="tab3" data-tab="tab3">অন্যান্য তথ্য</label>
+        <label for="tab4" data-tab="tab4">ফলাফল</label>
+    </div>
+
+    <!-- Content Sections -->
+    <div class="tcontent" id="tab1-content">
+        <div class="alert"><i class="fas fa-info-circle"></i> কোনো তথ্য মিসিং থাকলে আমাদের টেলিগ্রাম গ্রুপে মেসেজ দিন।</div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>বিশ্ববিদ্যালয়</th>
+                        <th>লিংক</th>
+                        <th>ডেডলাইন</th>
+                        <th>অবশিষ্ট সময়</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>HSTU</td><td><a href="https://hstu.ac.bd/admission/index#" target="_blank">Visit</a></td><td>Dec 24, 2025</td><td data-count="24-12-2025 23:59"></td></tr>
+
+<tr><td>SUST </td><td><a href="https://admission.sust.edu.bd/" target="_blank">Visit</a></td><td>Dec 20, 2025</td><td data-count="20-12-2025 23:59"></td></tr>
+<tr><td>GST </td><td><a href="https://gstadmission.ac.bd/" target="_blank">Visit</a></td><td>Dec 24, 2025</td><td data-count="24-12-2025 23:59"></td></tr>
+<tr><td>CoU </td><td><a href="https://cou.admission-aid.com/" target="_blank">Visit</a></td><td>Dec 31, 2025</td><td data-count="31-12-2025 23:59"></td></tr>
+<tr><td>CUET </td><td><a href="https://admissioncuet.ac.bd/" target="_blank">Visit</a></td><td>Dec 31, 2025</td><td data-count="31-12-2025 23:59"></td></tr>
+
+<tr><td>National </td><td><a href="http://app11.nu.edu.bd/" target="_blank">Visit</a></td><td>Dec 31, 2025</td><td data-count="31-12-2025 23:59"></td></tr>
+<tr><td>DU</td><td><a href="https://admission.eis.du.ac.bd/bn/408b7c8ad06e4d9954fa2d948a01f508" target="_blank">Visit</a></td><td>Nov 19, 2025</td><td data-count="19-11-2025 23:59"></td></tr>
+<tr><td>Medical</td><td><a href="http://dgme.teletalk.com.bd/mbbs/" target="_blank">Visit</a></td><td>Nov 21, 2025</td><td data-count="21-11-2025 23:59"></td></tr>
+<tr><td>MIST</td><td><a href="http://mist.teletalk.com.bd" target="_blank">Visit</a></td><td>Nov 26, 2025</td><td data-count="26-11-2025 23:59"></td></tr>
+<tr><td>KU</td><td><a href="https://apply.ku.ac.bd" target="_blank">Visit</a></td><td>Nov 27, 2025</td><td data-count="27-11-2025 23:59"></td></tr>
+<tr><td>BMU</td><td><a href="https://applyonline.bmu.edu.bd/Admission/Home" target="_blank">Visit</a></td><td>Nov 27, 2025</td><td data-count="27-11-2025 23:59"></td></tr>
+<tr><td>BUET</td><td><a href="https://www.buet.ac.bd/web/#/ugAdmission/1" target="_blank">Visit</a></td><td>Dec 02, 2025</td><td data-count="02-12-2025 15:00"></td></tr>
+<tr><td>BUP</td><td><a href="https://bup.edu.bd" target="_blank">Visit</a></td><td>Dec 07, 2025</td><td data-count="07-12-2025 23:59"></td></tr>
+
+<tr><td>JnU</td><td><a href="https://jnuadmission.com/" target="_blank">Visit</a></td><td>Dec 05, 2025</td><td data-count="05-12-2025 23:59"></td></tr>
+<tr><td>RU</td><td><a href="https://admission.ru.ac.bd/" target="_blank">Visit</a></td><td>Dec 07, 2025</td><td data-count="07-12-2025 23:59"></td></tr>
+<tr><td>JU</td><td><a href="https://ju-admission.org/" target="_blank">Visit</a></td><td>Dec 07, 2025</td><td data-count="07-12-2025 23:59"></td></tr>
+<tr><td>AAUB</td><td><a href="http://aaub.teletalk.com.bd" target="_blank">Visit</a></td><td>Dec 11, 2025</td><td data-count="11-12-2025 23:59"></td></tr>
+<tr><td>BUTEX</td><td><a href="http://dot.teletalk.com.bd/" target="_blank">Visit</a></td><td>Dec 11, 2025</td><td data-count="11-12-2025 23:59"></td></tr>
+<tr><td>RUET </td><td><a href="https://admission.ruet.ac.bd/" target="_blank">Visit</a></td><td>Dec 13, 2025</td><td data-count="13-12-2025 23:59"></td></tr>
+<tr><td>KUET </td><td><a href="https://admission.kuet.ac.bd/admission/" target="_blank">Visit</a></td><td>Dec 13, 2025</td><td data-count="13-12-2025 23:59"></td></tr>
+<tr><td>CU </td><td><a href="https://admission.cu.ac.bd/" target="_blank">Visit</a></td><td>Dec 17, 2025</td><td data-count="17-12-2025 23:59"></td></tr>
+<tr><td>Agri Guccho </td><td><a href="https://acas.edu.bd/" target="_blank">Visit</a></td><td>Dec 18, 2025</td><td data-count="18-12-2025 23:59"></td></tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="tcontent" id="tab2-content">
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ইউনিট</th>
+                        <th>প্রবেশপত্র</th>
+                        <th>পরীক্ষার তারিখ</th>
+                        <th>বাকি আছে</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>DU (A)</td><td> এডমিট প্রকাশিত </td> <td> স্থগিত </td><td data-count="20-12-2026 11:00"></td></tr>
+
+<tr><td>JU (C)</td><td>এডমিট প্রকাশিত</td><td>Dec 21, 2025</td><td data-count="21-12-2025 09:00"></td></tr>
+<tr><td>JU (B)</td><td>এডমিট প্রকাশিত</td><td>Dec 22, 2025</td><td data-count="22-12-2025 09:00"></td></tr>
+<tr><td>JU (E)</td><td>এডমিট প্রকাশিত</td><td>Dec 22, 2025</td><td data-count="22-12-2025 13:50"></td></tr>
+<tr><td>JU (C1)</td><td>এডমিট প্রকাশিত</td><td>Dec 23, 2025</td><td data-count="23-12-2025 09:00"></td></tr>
+<tr><td>JU (D) Male</td><td>এডমিট প্রকাশিত</td><td>Dec 23, 2025</td><td data-count="23-12-2025 10:25"></td></tr>
+<tr><td>JU (D) Female</td><td>এডমিট প্রকাশিত</td><td>Dec 24, 2025</td><td data-count="24-12-2025 09:00"></td></tr>
+
+
+<tr><td>AAUB</td><td>Dec 16, 2026</td><td>Dec 26, 2025</td><td data-count="26-12-2025 10:00"></td></tr>
+<tr><td>JnU (A)</td><td>এডমিট প্রকাশিত</td><td>Dec 26, 2025</td><td data-count="26-12-2025 11:00"></td></tr>
+<tr><td>JnU (C)</td><td>N/A</td><td>Dec 27, 2025</td><td data-count="27-12-2025 11:00"></td></tr>
+
+
+<tr><td>MIST</td><td>Dec 15, 2025</td><td>Dec 27, 2025</td><td data-count="27-12-2025 10:00"></td></tr>
+<tr><td>JU (IBA) </td><td>এডমিট প্রকাশিত</td><td>Dec 28, 2025</td><td data-count="28-12-2025 09:00"></td></tr>
+<tr><td>JU (A) Female</td><td>এডমিট প্রকাশিত</td><td>Dec 28, 2025</td><td data-count="28-12-2025 10:25"></td></tr>
+<tr><td>JU (A) Male</td><td>এডমিট প্রকাশিত</td><td>Dec 29, 2025</td><td data-count="29-12-2025 09:00"></td></tr>
+
+<tr><td>CU (A) </td><td> Dec 21, 2025-Exam Date </td><td>Jan 02, 2026</td><td data-count="02-01-2026 11:00"></td></tr>
+<tr><td>CU (D) </td><td> Dec 22, 2025-Exam Date </td><td>Jan 03, 2026</td><td data-count="03-01-2026 11:00"></td></tr>
+<tr><td>Agri Guccho </td><td>Dec 27, 2025-Jan 03, 2026</td><td>Jan 03, 2026</td><td data-count="03-01-2026 14:00"></td></tr>
+<tr><td>CU (D1) </td><td> Dec 24, 2025-Exam Date </td><td>Jan 05, 2026</td><td data-count="05-01-2026 11:00"></td></tr>
+<tr><td>CU (B1) </td><td> Dec 26, 2025-Exam Date </td><td>Jan 07, 2026</td><td data-count="07-01-2026 11:00"></td></tr>
+<tr><td>CU (B2) </td><td> Dec 27, 2025-Exam Date </td><td>Jan 08, 2026</td><td data-count="08-01-2026 11:00"></td></tr>
+<tr><td>BUTEX </td><td>Dec 23, 2025-Dec 30, 2025</td><td>Jan 09, 2026</td><td data-count="09-01-2026 09:00"></td></tr>
+<tr><td>CU (C) </td><td>  Dec 28, 2025-Exam Date </td><td>Jan 09, 2026</td><td data-count="09-01-2026 11:00"></td></tr>
+<tr><td>CU (B) </td><td> Dec 29, 2025-Exam Date </td><td>Jan 10, 2026</td><td data-count="10-01-2026 11:00"></td></tr>
+
+
+<tr><td>BUP (FBS)</td><td>N/A</td><td>Jan 09, 2026</td><td data-count="09-01-2026 10:30"></td></tr>
+<tr><td>BUP (BA)</td><td>N/A</td><td>Jan 09, 2026</td><td data-count="09-01-2026 15:30"></td></tr>
+<tr><td>BUP (FASS)</td><td>N/A</td><td>Jan 10, 2026</td><td data-count="10-01-2026 10:30"></td></tr>
+<tr><td>BUET</td><td>Dec 17, 2025</td><td>Jan 10, 2026</td><td data-count="10-01-2026 10:00"></td></tr>
+<tr><td>JnU (D)</td><td>N/A</td><td>Jan 09, 2026</td><td data-count="09-01-2026 11:00"></td></tr>
+<tr><td>SUST (A) </td><td>দিলে জানানো হবে</td><td>Jan 13, 2026</td><td data-count="13-01-2026 15:00"></td></tr>
+<tr><td>SUST (B) </td><td>দিলে জানানো হবে</td><td>Jan 14, 2026</td><td data-count="14-01-2026 15:00"></td></tr>
+<tr><td>KUET </td><td>Jan 05, 2025-Jan 15, 2025</td><td>Jan 15, 2026</td><td data-count="15-01-2026 09:30"></td></tr>
+<tr><td>RU (C)</td><td> Dec 17, 2025-Dec 22, 2025 </td><td>Jan 16, 2026</td><td data-count="16-01-2026 11:00"></td></tr>
+<tr><td>RU (A)</td><td> Dec 17, 2025-Dec 22, 2025 </td><td>Jan 17, 2026</td><td data-count="17-01-2026 11:00"></td></tr>
+<tr><td>CUET </td><td>দিলে জানানো হবে</td><td>Jan 17, 2026</td><td data-count="17-01-2026 10:00"></td></tr>
+<tr><td>BUP (FST, FOE, FMS)</td><td>N/A</td><td>Jan 17, 2026</td><td data-count="17-01-2026 10:30"></td></tr>
+<tr><td>BUP (FSSS)</td><td>N/A</td><td>Jan 17, 2026</td><td data-count="17-01-2026 15:30"></td></tr>
+<tr><td>RUET</td><td>Jan 10, 2025-Jan 22, 2025</td><td>Jan 22, 2026</td><td data-count="22-01-2026 10:00"></td></tr>
+
+<tr><td>JnU (B)</td><td>N/A</td><td>Jan 23, 2026</td><td data-count="23-01-2026 11:00"></td></tr>
+<tr><td>RU (B)</td><td> Dec 17, 2025-Dec 22, 2025  </td><td>Jan 24, 2026</td><td data-count="24-01-2026 11:00"></td></tr>
+<tr><td>CoU (A) </td><td>দিলে জানানো হবে</td><td>Jan 30, 2026</td><td data-count="30-01-2026 11:00"></td></tr>
+<tr><td>CoU (B) </td><td>দিলে জানানো হবে</td><td>Jan 31, 2026</td><td data-count="31-01-2026 11:00"></td></tr>
+<tr><td>CoU (C) </td><td>দিলে জানানো হবে</td><td>Jan 31, 2026</td><td data-count="31-01-2026 15:00"></td></tr>
+<tr><td>BMU (FMGP)</td><td>N/A</td><td>Jan 30, 2026</td><td data-count="30-01-2026 10:00"></td></tr>
+<tr><td>BMU (FSA)</td><td>N/A</td><td>Jan 30, 2026</td><td data-count="30-01-2026 15:00"></td></tr>
+<tr><td>BMU (FEOS)</td><td>N/A</td><td>Jan 31, 2026</td><td data-count="31-01-2026 10:00"></td></tr>
+<tr><td>BMU (FET)</td><td>N/A</td><td>Jan 31, 2026</td><td data-count="31-01-2026 15:00"></td></tr>
+<tr><td>GST (C) </td><td>দিলে জানানো হবে</td><td>Mar 27, 2026</td><td data-count="27-03-2026 11:00"></td></tr>
+<tr><td>GST (B) </td><td>দিলে জানানো হবে</td><td>Apr 03, 2026</td><td data-count="03-04-2026 11:00"></td></tr>
+<tr><td>GST (A) </td><td>দিলে জানানো হবে</td><td>Apr 10, 2026</td><td data-count="10-04-2026 11:00"></td></tr>
+<tr><td>DU (IBA)</td><td>N/A</td><td>Nov 28, 2025</td><td data-count="28-11-2025 11:00"></td></tr>
+<tr><td>DU (FA)</td><td>N/A</td><td>Nov 29, 2025</td><td data-count="29-11-2025 11:00"></td></tr>
+<tr><td>DU (C)</td><td>N/A</td><td>Dec 06, 2025</td><td data-count="06-12-2025 11:00"></td></tr>
+<tr><td>DU (B)</td><td>এডমিট প্রকাশিত</td><td>Dec 13, 2025</td><td data-count="13-12-2025 11:00"></td></tr>
+<tr><td>JnU (E)</td><td>এডমিট প্রকাশিত</td><td>Dec 13, 2025</td><td data-count="13-12-2025 15:00"></td></tr>
+<tr><td>KU (D)</td><td>এডমিট প্রকাশিত</td><td>Dec 18, 2025</td><td data-count="18-12-2025 10:30"></td></tr>
+<tr><td>KU (C)</td><td>এডমিট প্রকাশিত</td><td>Dec 18, 2025</td><td data-count="18-12-2025 13:30"></td></tr>
+<tr><td>KU (A)</td><td>এডমিট প্রকাশিত</td><td>Dec 19, 2025</td><td data-count="19-12-2025 09:30"></td></tr>
+<tr><td>KU (B)</td><td>এডমিট প্রকাশিত</td><td>Dec 19, 2025</td><td data-count="19-12-2025 14:30"></td></tr>
+<tr><td>Medical</td><td>এডমিট এক্সপায়ারড</td><td>Dec 12, 2025</td><td data-count="12-12-2025 10:00"></td></tr>
+<tr><td>AFMC & AMC </td><td>Dec 14, 2025-Dec 19, 2025</td><td>Dec 19, 2026</td><td data-count="19-12-2025 10:00"></td></tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Other tabs follow the same table-container structure -->
+    <div class="tcontent" id="tab3-content">
+         <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>বিশ্ববিদ্যালয়</th>
+                        <th>নেগেটিভ</th>
+                        <th>ক্যালকুলেটর</th>
+                        <th>সেকেন্ড টাইম</th>
+                      <th> সার্কুলার </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>DU</td><td>0.25</td><td no></td><td no></td><td><a href="https://drive.google.com/drive/folders/1-DoxfgsBFCPNp8bJsXZTu7qELfyscyQ2?usp=drive_link" target="_blank">দেখুন</a></td></tr>
+<tr><td>KU</td><td>0.25</td><td yes></td><td yes></td><td><a href="https://drive.google.com/drive/folders/1iRskqJ_eotjLn8itGua1PH4jtmoaGX8-" target="_blank">দেখুন</a></td></tr>
+<tr><td>BUP</td><td>0.25</td><td yes></td><td yes></td><td><a href="https://drive.google.com/drive/folders/1HWO1fPdX2QYN6CE6b_LtHZFCZ4XgwAVZ" target="_blank">দেখুন</a></td></tr>
+<tr><td>BMU</td><td>0.25</td><td yes></td><td yes></td><td><a href="https://drive.google.com/drive/folders/10u0Lr5dwx2X1_Que1rc6xHVw8g2F3XU_" target="_blank">দেখুন</a></td></tr>
+<tr><td>AAUB</td><td>0.25</td><td yes></td><td yes></td><td><a href="https://drive.google.com/drive/folders/1zwyXphyYSEC8EZ4joIN_8LjBsOjDWbEl" target="_blank">দেখুন</a></td></tr>
+<tr><td>MIST</td><td>0.25</td><td yes></td><td yes></td><td><a href="https://drive.google.com/drive/folders/1idkfjsWen3n0E1ljM8dHi9oTs5NXQqyz" target="_blank">দেখুন</a></td></tr>
+<tr><td>BUET</td><td>শুধু রিটেন</td><td yes></td><td no></td><td><a href="https://drive.google.com/drive/folders/1DFkf1OzawwGhRDCyOXR2b9sP2kDYI5P0" target="_blank">দেখুন</a></td></tr>
+<tr><td>BUTEX</td><td>শুধু রিটেন</td><td yes></td><td no></td><td><a href="https://drive.google.com/drive/folders/1vTHP73r9esLCifAXCv4R3DbDj8pZ4pll" target="_blank">দেখুন</a></td></tr>
+<tr><td>Medical</td><td>0.25</td><td no></td><td yes></td><td><a href="https://drive.google.com/drive/folders/1yE4fxwL5yp1pIyyBeQOJSX1McIe_DPWo" target="_blank">দেখুন</a></td></tr>
+<tr><td>RU</td><td>0.25</td><td no></td><td yes></td><td><a href="https://drive.google.com/drive/folders/1-8xWawDMibGYtgxdZXTVGmePhkW1ypuA" target="_blank">দেখুন</a></td></tr>
+<tr><td>JnU</td><td>নাই</td><td no></td><td no></td><td><a href="https://drive.google.com/drive/folders/1XgM6TjSmU0-Zqgw2PyVQu4GBPHiht534" target="_blank">দেখুন</a></td></tr>
+<tr><td>HSTU</td><td>0.25</td><td no></td><td yes></td><td><a href="https://drive.google.com/drive/folders/1KNpjRykz6EFVfzV5IRmCC-kRR-e87fs0" target="_blank">দেখুন</a></td></tr>
+<tr><td>Agri Guccho</td><td>0.25</td><td no></td><td yes></td><td><a href="https://drive.google.com/drive/folders/1ZSHs9FuMxwHkGxBbgWaql9roTl020joZ" target="_blank">দেখুন</a></td></tr>
+<tr><td>CU </td><td>0.25</td><td yes></td><td yes></td><td><a href="https://drive.google.com/drive/folders/1YiY3lTHbgSLcvp5Q5JcibbEftvo0rOkq" target="_blank">দেখুন</a></td></tr>
+<tr><td>CoU </td><td>0.25</td><td no></td><td yes></td><td><a href="https://drive.google.com/drive/folders/1VQkwVv0oUU0amnClKctaVdIMxxwGvqNW" target="_blank">দেখুন</a></td></tr>
+<tr><td>JU </td><td>0.20</td><td no></td><td yes></td><td><a href="https://drive.google.com/drive/folders/11TDkDN8aFd0G7YHGgDOz0Hz4Sb5mCuFz" target="_blank">দেখুন</a></td></tr>
+<tr><td>RUET </td><td>0.25</td><td yes></td><td no></td><td><a href="https://drive.google.com/drive/folders/1Va8vklaMg8wxZ-v9AnS8KgC2Dj04dt-m" target="_blank">দেখুন</a></td></tr>
+<tr><td>CUET </td><td>0.25</td><td yes></td><td no></td><td><a href="https://drive.google.com/drive/folders/1KZSrJ4hCWDH5zgXMZDpjbaNSw5ku133t" target="_blank">দেখুন</a></td></tr>
+<tr><td>KUET </td><td>0.25</td><td yes></td><td no></td><td><a href="https://drive.google.com/drive/folders/14iHzwKUkJjTsB1JmORXh2otRyGop8D5Y" target="_blank">দেখুন</a></td></tr>
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div class="tcontent" id="tab4-content">
+         <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>বিশ্ববিদ্যালয়</th>
+                        <th>তারিখ</th>
+                        <th>লিংক</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    2025</td><td><a href="#"t
+                                   </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p>&copy; <span id="year"></span> Mahin's Classroom. All rights reserved.</p>
+</footer>
+
+<script>
+    // Theme Toggle Logic
+    const themeBtn = document.getElementById('themeBtn');
+    const body = document.body;
+    const icon = themeBtn.querySelector('i');
+
+    // Load saved theme
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    body.setAttribute('data-theme', savedTheme);
+    updateIcon(savedTheme);
+
+    themeBtn.addEventListener('click', () => {
+        const currentTheme = body.getAttribute('data-theme');
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        
+        body.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateIcon(newTheme);
+    });
+
+    function updateIcon(theme) {
+        if(theme === 'dark') {
+            icon.classList.replace('fa-moon', 'fa-sun');
+        } else {
+            icon.classList.replace('fa-sun', 'fa-moon');
+        }
+    }
+
+    // Auto update year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Simple Countdown Logic
+    function updateCountdowns() {
+        const now = new Date().getTime();
+        document.querySelectorAll('.countdown').forEach(el => {
+            const targetDate = el.getAttribute('data-count');
+            if (!targetDate) return;
+
+            const target = new Date(targetDate).getTime();
+            const diff = target - now;
+
+            if (diff < 0) {
+                el.innerText = "সময় শেষ";
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            el.innerText = `${days}d ${hours}h`;
+        });
+    }
+
+    setInterval(updateCountdowns, 1000);
+    updateCountdowns();
+
+    // Handle Hash links for tabs
+    window.addEventListener("load", () => {
+        const hash = location.hash.replace("#", "");
+        if (hash && document.getElementById(hash)) {
+            document.getElementById(hash).checked = true;
+        }
+    });
+</script>
+
+</body>
+</html>
