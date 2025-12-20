@@ -128,7 +128,7 @@
       border-radius: var(--radius);
       background: #fff;
       border: 1px solid var(--border);
-      color: var(--text);
+      color: var(--text-light);
       cursor: pointer;
       font-weight: 500;
       transition: all 0.3s ease;
@@ -173,7 +173,7 @@
       background: #fff8e1;
       border-left: 4px solid #ffc107;
       padding: 10px 15px;
-      border-radius: var(--radius);
+      border-radius: 2px var(--radius);
       font-size: 14px;
           text-align: center; 
     }
@@ -183,7 +183,7 @@
       border-collapse: collapse;
       margin-top: 15px;
       font-size: 14px;
-      border-radius: var(--radius);
+      border-radius: 5px var(--radius);
       overflow: hidden;
     }
 
@@ -204,7 +204,7 @@
     }
 
 tr:nth-child(even) td {
-  background: #f8faff;
+  background: var(--bg-light);
 }
 
     tr:hover {
