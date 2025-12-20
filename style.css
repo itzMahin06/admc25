@@ -143,12 +143,13 @@ tr:nth-child(even) td {
     }
 
     td[yes]::before {
-      content: "✔️ ";
+      content: "<i class="bi bi-check2-circle" style="color: #28a745;"></i>
+ ";
       color: green;
     }
 
     td[no]::before {
-      content: "❌ ";
+      content: "<i class="bi bi-x-circle" style="color: #28a745;"></i> ";
       color: red;
     }
 
