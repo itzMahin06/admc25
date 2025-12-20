@@ -115,7 +115,7 @@
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 8px;
-      background: var(--card-bg);
+      background: var(--card-light);
       border-radius: var(--radius);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
       padding: 10px;
@@ -148,15 +148,15 @@
     #tab2:checked ~ .tlabels label[for="tab2"],
     #tab3:checked ~ .tlabels label[for="tab3"],
     #tab4:checked ~ .tlabels label[for="tab4"] {
-      background: var(--primary);
-      color: #fff;
+      background: var(--bg-light);
+      color: var(--text-light);
       border-color: var(--primary);
     }
 
     .tcontent {
       display: none;
       margin-top: 20px;
-      background: #fff;
+      background: var(--bg-light);
       border-radius: var(--radius);
       padding: 15px;
       box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
@@ -194,7 +194,7 @@
 
     th {
       background: var(--primary);
-      color: #fff;
+      color: var(--text-light);
       font-weight: 500;
     }
 
@@ -212,7 +212,7 @@ tr:nth-child(even) td {
     }
 
     td a {
-      color: var(--primary);
+      color: var(--text-light);
       text-decoration: none;
       font-weight: 500;
     }
