@@ -414,5 +414,26 @@ title: "Untitled Video"
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
 <script src="script.js"></script>
+    <script>
+  // When clicking tab → update URL hash
+  document.querySelectorAll(".tlabels label").forEach(label => {
+    label.addEventListener("click", () => {
+      const tabId = label.getAttribute("data-tab");
+      history.pushState(null, "", "#" + tabId);
+    });
+  });
+
+  // On page load → open tab from URL hash
+  function openTabFromHash() {
+    const hash = location.hash.replace("#", "");
+    if (hash && document.getElementById(hash)) {
+      document.getElementById(hash).checked = true;
+    }
+  }
+
+  window.addEventListener("load", openTabFromHash);
+  window.addEventListener("hashchange", openTabFromHash);
+</script>
+
 </body>
 </html>
