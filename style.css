@@ -126,7 +126,7 @@
       text-align: center;
       padding: 10px 0;
       border-radius: var(--radius);
-      background: #fff;
+      background: var(--bg-light);
       border: 1px solid var(--border);
       color: var(--text-light);
       cursor: pointer;
