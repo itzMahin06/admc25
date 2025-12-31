@@ -115,7 +115,7 @@
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 8px;
-      background: var(--card-light);
+      background: var(--bg-light);
       border-radius: var(--radius);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
       padding: 10px;
@@ -170,7 +170,7 @@
     }
 
     .alert {
-      background: #fff8e1;
+      background: var(--bg-light);
       border-left: 4px solid #ffc107;
       padding: 10px 15px;
       border-radius: 2px var(--radius);
