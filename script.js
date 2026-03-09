@@ -68,7 +68,7 @@
                     const bnHours = engToBng(hours);
                     const bnMins = engToBng(minutes);
                     
-                    cell.innerHTML = `<span class="countdown">${bnDays}দিন ${bnHours}ঘণ্টা ${bnMins}মিনিট</span>`;
+                    cell.innerHTML = `<span class="countdown">${bnDays} দিন ${bnHours} ঘণ্টা ${bnMins} মিনিট</span>`;
                 }
             });
         }, 1000);
