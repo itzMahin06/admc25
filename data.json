@@ -27,7 +27,7 @@
     { "university": "CUET", "link": "https://admissioncuet.ac.bd/", "linkText": "Apply", "deadline": "Dec 31, 2025", "countdown": "31-12-2025 23:59" }
   ],
   "exam": [
-    { "university": "GST (C)", "admitCard": "প্রকাশিত", "date": "Mar 27, 2026", "countdown": "27-03-2026 11:00" },
+    { "university": "GST (C)", "admitCard": "প্রকাশিত", "date": "Mar 27, 2026", "countdown": "27-05-2026 11:00" },
     { "university": "NITOR", "admitCard": "প্রকাশিত", "date": "Apr 03, 2026", "countdown": "03-04-2026 10:00" },
     { "university": "GST (B)", "admitCard": "প্রকাশিত", "date": "Apr 03, 2026", "countdown": "03-04-2026 11:00" },
     { "university": "DU Tech", "admitCard": "প্রকাশিত", "date": "Apr 04, 2026", "countdown": "04-04-2026 11:00" },
